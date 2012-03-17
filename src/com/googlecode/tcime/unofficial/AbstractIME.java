@@ -94,7 +94,7 @@ public abstract class AbstractIME extends InputMethodService implements
     iFilter.addAction(TEXT_GOT);
     registerReceiver(txtReceiver, iFilter);
     // Use the following line to debug IME service.
-    //android.os.Debug.waitForDebugger();
+    android.os.Debug.waitForDebugger();
   }
 
   @Override
@@ -527,15 +527,14 @@ public abstract class AbstractIME extends InputMethodService implements
   }
   
   /**
-   * Handles the Language Change event (English <-> Chinese).
-   * Normally Shift + Space key, or Language Change key
+   * Handles the Shift + Space key to change the input mode.
    * 
    * @param keyCode
    * @param event
    * @return true if handled
    */
-  public boolean handleLanguageChange(int keyCode, KeyEvent event){
-	if ((event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_SPACE) || keyCode == 1000) { // 1000 is hard-coded by MS3
+  public boolean handleShiftSpacekey(int keyCode, KeyEvent event){
+	if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_SPACE) {
 		// Clear all meta state
 		clearKeyboardMetaState();
 

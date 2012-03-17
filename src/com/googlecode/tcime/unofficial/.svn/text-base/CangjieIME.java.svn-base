@@ -114,7 +114,7 @@ public class CangjieIME extends AbstractIME {
 		}
 		
 		// Shift + Space
-		if(handleLanguageChange(keyCode, event)){
+		if(handleShiftSpacekey(keyCode, event)){
 			// Determine if it is simplified cangjie
 			// Because the sKB we got is old. The Cangjie keyboard should be English after handleShiftSpacekey().
 			boolean isCangjie = !sKB.isCangjie();

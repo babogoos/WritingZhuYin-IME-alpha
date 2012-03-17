@@ -19,9 +19,7 @@ package com.googlecode.tcime.unofficial;
 import java.util.HashMap;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
@@ -30,40 +28,38 @@ import android.view.inputmethod.EditorInfo;
  */
 public class ZhuyinIME extends AbstractIME {
 	private HashMap<Integer, Integer> keyMapping;
-	private SharedPreferences preferences;
 	private boolean isAltUsed = false;
-	private boolean isMS3 = false;
 
-	@Override
-	protected KeyboardSwitch createKeyboardSwitch(Context context) {
-		return new KeyboardSwitch(context, R.xml.zhuyin);
-	}
+  @Override
+  protected KeyboardSwitch createKeyboardSwitch(Context context) {
+    return new KeyboardSwitch(context, R.xml.zhuyin);
+  }
 
-	@Override
-	protected Editor createEditor() {
-		return new ZhuyinEditor();
-	}
+  @Override
+  protected Editor createEditor() {
+    return new ZhuyinEditor();
+  }
 
-	@Override
-	protected WordDictionary createWordDictionary(Context context) {
-		return new ZhuyinDictionary(context);
-	}
+  @Override
+  protected WordDictionary createWordDictionary(Context context) {
+    return new ZhuyinDictionary(context);
+  }
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		keyMapping = new HashMap<Integer, Integer>();
-		keyMapping.put(8, 0x3105);
+		keyMapping.put(8,  0x3105);//ㄅ
 		keyMapping.put(45, 0x3106);
 		keyMapping.put(29, 0x3107);
 		keyMapping.put(54, 0x3108);
-		keyMapping.put(9, 0x3109);
+		keyMapping.put(9,  0x3109);
 		keyMapping.put(51, 0x310A);
 		keyMapping.put(47, 0x310B);
 		keyMapping.put(52, 0x310C);
 		keyMapping.put(33, 0x310D);
 		keyMapping.put(32, 0x310E);
-		keyMapping.put(31, 0x310F);
+		keyMapping.put(31, 0x310F);//ㄏ
 		keyMapping.put(46, 0x3110);
 		keyMapping.put(34, 0x3111);
 		keyMapping.put(50, 0x3112);
@@ -73,10 +69,10 @@ public class ZhuyinIME extends AbstractIME {
 		keyMapping.put(30, 0x3116);
 		keyMapping.put(53, 0x3117);
 		keyMapping.put(36, 0x3118);
-		keyMapping.put(42, 0x3119);
-		keyMapping.put(49, 0x3127);
-		keyMapping.put(38, 0x3128);
-		keyMapping.put(41, 0x3129);
+		keyMapping.put(42, 0x3119);//ㄙ
+		keyMapping.put(49, 0x3127);//一
+		keyMapping.put(38, 0x3128);//ㄨ
+		keyMapping.put(41, 0x3129);//ㄩ
 		keyMapping.put(15, 0x311A);
 		keyMapping.put(37, 0x311B);
 		keyMapping.put(39, 0x311C);
@@ -85,30 +81,22 @@ public class ZhuyinIME extends AbstractIME {
 		keyMapping.put(43, 0x311F);
 		keyMapping.put(40, 0x3120);
 		keyMapping.put(56, 0x3121);
-		keyMapping.put(7, 0x3122);
+		keyMapping.put(7,  0x3122);
 		keyMapping.put(44, 0x3123);
 		keyMapping.put(74, 0x3124);
-		keyMapping.put(72, 0x3124); // MS1 fix: KEYCODE_RIGHT_BRACKET(?) as
-									// KEYCODE_SEMICOLON(;)
-		keyMapping.put(76, 0x3125);
-		keyMapping.put(69, 0x3126);
-		keyMapping.put(77, 0x3126); // MS1/2 fix: KEYCODE_AT(@) as
-									// KEYCODE_MINUS(-)
-		keyMapping.put(10, 0x2C7);
-		keyMapping.put(11, 0x2CB);
-		keyMapping.put(13, 0x2CA);
-		keyMapping.put(14, 0x2D9);
-
-		// Get the setting from SharedPreferences. See if this is Milestone 3
-		preferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		isMS3 = preferences.getBoolean(getString(R.string.prefs_ms3_key), false);
+		keyMapping.put(72, 0x3124); // MS1 fix: KEYCODE_RIGHT_BRACKET(?) as KEYCODE_SEMICOLON(;)
+		keyMapping.put(76, 0x3125); //ㄥ
+		keyMapping.put(69, 0x3126); //ㄦ
+		keyMapping.put(77, 0x3126); // MS1/2 fix: KEYCODE_AT(@) as KEYCODE_MINUS(-)
+		keyMapping.put(10, 0x2C7); //三聲ˇ
+		keyMapping.put(11, 0x2CB); //四聲ˋ
+		keyMapping.put(13, 0x2CA); //二聲ˊ
+		keyMapping.put(14, 0x2D9); //輕聲˙
 	}
 
-	public void onStartInput(EditorInfo attribute, boolean restarting) {
+	public void onStartInput(EditorInfo attribute, boolean restarting){
 		super.onStartInput(attribute, restarting);
 		showStatusIcon(keyboardSwitch.getLanguageIcon());
-		isMS3 = preferences.getBoolean(getString(R.string.prefs_ms3_key), false);
 	}
 
 	@Override
@@ -122,87 +110,76 @@ public class ZhuyinIME extends AbstractIME {
 		// Capture the hardware keyboard
 		if (hasHardKeyboard) {
 			// Check the status
-			SoftKeyboard sKB = (SoftKeyboard) keyboardSwitch
-					.getCurrentKeyboard();
-			if (!checkHardKeyboardAvailable(sKB)) {
+			SoftKeyboard sKB = (SoftKeyboard) keyboardSwitch.getCurrentKeyboard();
+			if(!checkHardKeyboardAvailable(sKB)){
 				return super.onKeyDown(keyCode, event);
 			}
-
+			
 			// Shift + Space
-			if (handleLanguageChange(keyCode, event)) {
+			if(handleShiftSpacekey(keyCode, event)){
 				isAltUsed = false; // Clear Alt status
 				return true;
 			}
-
+			
 			// Handle HardKB event on Chinese mode only
 			if (sKB.isChinese()) {
-				// Milestone first row key
-				// (If alt is pressed before, emulate 1 - 0 keys)
-				if (isAltUsed || event.isAltPressed()) {
+				// Milestone first row key (If alt is pressed before, emulate 1 - 0 keys)
+				if(isAltUsed || event.isAltPressed()){
 					boolean isTriggered = false;
-					switch (keyCode) {
-					case KeyEvent.KEYCODE_Q:
-						keyCode = KeyEvent.KEYCODE_1;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_W:
-						keyCode = KeyEvent.KEYCODE_2;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_E:
-						keyCode = KeyEvent.KEYCODE_3;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_R:
-						keyCode = KeyEvent.KEYCODE_4;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_T:
-						keyCode = KeyEvent.KEYCODE_5;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_Y:
-						keyCode = KeyEvent.KEYCODE_6;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_U:
-						keyCode = KeyEvent.KEYCODE_7;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_I:
-						keyCode = KeyEvent.KEYCODE_8;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_O:
-						keyCode = KeyEvent.KEYCODE_9;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_P:
-						if (isMS3) { // MS3 fix (Alt + P = ㄦ)
+					switch(keyCode){
+						case KeyEvent.KEYCODE_Q: //35
+							keyCode = KeyEvent.KEYCODE_1; //8
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_W: //36
+							keyCode = KeyEvent.KEYCODE_2; //9
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_E: //37
+							keyCode = KeyEvent.KEYCODE_3; //10
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_R: //38
+							keyCode = KeyEvent.KEYCODE_4; //11
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_T: //39
+							keyCode = KeyEvent.KEYCODE_5; //12
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_Y: //40
+							keyCode = KeyEvent.KEYCODE_6; //13
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_U: //41
+							keyCode = KeyEvent.KEYCODE_7; //14
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_I: //42
+							keyCode = KeyEvent.KEYCODE_8; //15
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_O: //43
+							keyCode = KeyEvent.KEYCODE_9; //16
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_P: //44
+							keyCode = KeyEvent.KEYCODE_0; //17
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_V: // MS1/2 fix (Alt + V = -)
 							keyCode = KeyEvent.KEYCODE_MINUS;
-						} else {
-							keyCode = KeyEvent.KEYCODE_0;
-						}
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_V: // MS1/2 fix (Alt + V = - = ㄦ)
-						keyCode = KeyEvent.KEYCODE_MINUS;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_COMMA: // MS2 fix (Alt + , = ; = ㄤ)
-					case KeyEvent.KEYCODE_L: // MS3 fix (Alt + L = ㄤ)
-						keyCode = KeyEvent.KEYCODE_SEMICOLON;
-						isTriggered = true;
-						break;
-					case KeyEvent.KEYCODE_PERIOD: // MS3 fix (Alt + . = ㄥ)
-						keyCode = KeyEvent.KEYCODE_SLASH;
-						isTriggered = true;
-						break;
+							isTriggered = true;
+							break;
+						case KeyEvent.KEYCODE_COMMA: // MS2 fix (Alt + , = ;)
+							keyCode = KeyEvent.KEYCODE_SEMICOLON;
+							isTriggered = true;
+							break;
 					}
-					if (isTriggered) {
+					if(isTriggered){
 						clearKeyboardMetaState();
 						isAltUsed = false;
-					} else {
+					}else{
 						// Pressed Alt key only
 						// Record if Alt key was pressed before
 						isAltUsed = true;
@@ -216,17 +193,17 @@ public class ZhuyinIME extends AbstractIME {
 					return true;
 				}
 				// Handle Delete
-				if (keyCode == KeyEvent.KEYCODE_DEL) {
+				if(keyCode == KeyEvent.KEYCODE_DEL){
 					onKey(SoftKeyboard.KEYCODE_DELETE, null);
 					return true;
 				}
 				// Handle Space
-				if (keyCode == KeyEvent.KEYCODE_SPACE) {
+				if(keyCode == KeyEvent.KEYCODE_SPACE){
 					onKey(SoftKeyboard.KEYCODE_SPACE, null);
 					return true;
 				}
 				// Handle Enter
-				if (keyCode == KeyEvent.KEYCODE_ENTER) {
+				if(keyCode == KeyEvent.KEYCODE_ENTER){
 					onKey(SoftKeyboard.KEYCODE_ENTER, null);
 					return true;
 				}

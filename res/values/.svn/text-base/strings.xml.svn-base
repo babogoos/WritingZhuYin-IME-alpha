@@ -37,9 +37,6 @@
     <string name="prefs_qwerty5row_title">五排英文鍵盤</string>
     <string name="prefs_qwerty5row_key">prefs_qwerty5row</string>
     <string name="prefs_qwerty5row_summary">是否於英文鍵盤上增加一排數字鍵 (會壓縮到鍵盤尺寸)</string>
-    <string name="prefs_ms3_title">MS3 注音鍵盤配置</string>
-    <string name="prefs_ms3_key">prefs_ms3</string>
-    <string name="prefs_ms3_summary">是否使用 Milestone 3 印刷之注音鍵盤配置，MS 1/2 使用者請務必取消勾選</string>
     
     <!-- String resources -->
     <string name="str_needsreopen">為了使用硬體鍵盤，請您先將鍵盤收起再打開</string>

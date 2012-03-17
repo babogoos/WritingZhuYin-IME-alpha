@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 33
-/svn/!svn/ver/18/trunk/res/values
+/svn/!svn/ver/14/trunk/res/values
 END
 colors.xml
 K 25
@@ -13,7 +13,7 @@ strings.xml
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/svn/!svn/ver/18/trunk/res/values/strings.xml
+/svn/!svn/ver/14/trunk/res/values/strings.xml
 END
 dimens.xml
 K 25

@@ -36,12 +36,6 @@
         android:persistent="true"
         android:summary="@string/prefs_qwerty5row_summary"/>
 
-    <CheckBoxPreference
-        android:key="@string/prefs_ms3_key"
-        android:title="@string/prefs_ms3_title"
-        android:persistent="true"
-        android:summary="@string/prefs_ms3_summary"/>
-
     <Preference
         android:key="@string/prefs_licensing"
         android:title="@string/prefs_licensing"

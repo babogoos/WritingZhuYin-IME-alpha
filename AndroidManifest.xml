@@ -19,8 +19,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.googlecode.tcime.unofficial"
-        android:versionCode="300"
-        android:versionName="3.0"
+        android:versionCode="241"
+        android:versionName="2.41"
         >
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -34,7 +34,7 @@
             <meta-data android:name="android.view.im" android:resource="@xml/method" />
         </service>
 
-        <service android:name="CangjieIME" android:label="@string/cangjie_ime_name"
+        <service android:name=".CangjieIME" android:label="@string/cangjie_ime_name"
                 android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -49,6 +49,6 @@
         </activity>
 
         <activity android:name="BarcodeScannerActivity" android:label="@string/menu_barcodescan" />
-        <activity android:name="VoiceRecognitionActivity" android:label="@string/menu_voiceinput" />
+        <activity android:name=".VoiceRecognitionActivity" android:label="@string/menu_voiceinput" />
     </application>
 </manifest>

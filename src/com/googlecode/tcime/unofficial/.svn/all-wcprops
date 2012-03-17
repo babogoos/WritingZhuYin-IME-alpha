@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svn/!svn/ver/18/trunk/src/com/googlecode/tcime/unofficial
+/svn/!svn/ver/17/trunk/src/com/googlecode/tcime/unofficial
 END
 WordDictionary.java
 K 25
@@ -49,7 +49,7 @@ ZhuyinIME.java
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svn/!svn/ver/18/trunk/src/com/googlecode/tcime/unofficial/ZhuyinIME.java
+/svn/!svn/ver/14/trunk/src/com/googlecode/tcime/unofficial/ZhuyinIME.java
 END
 KeyboardSwitch.java
 K 25
@@ -102,8 +102,8 @@ END
 CangjieIME.java
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/!svn/ver/18/trunk/src/com/googlecode/tcime/unofficial/CangjieIME.java
+V 73
+/svn/!svn/ver/8/trunk/src/com/googlecode/tcime/unofficial/CangjieIME.java
 END
 DictionaryLoader.java
 K 25
@@ -127,7 +127,7 @@ AbstractIME.java
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/svn/!svn/ver/18/trunk/src/com/googlecode/tcime/unofficial/AbstractIME.java
+/svn/!svn/ver/17/trunk/src/com/googlecode/tcime/unofficial/AbstractIME.java
 END
 ZhuyinTable.java
 K 25

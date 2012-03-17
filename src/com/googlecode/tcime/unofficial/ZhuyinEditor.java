@@ -30,36 +30,37 @@ public class ZhuyinEditor extends Editor {
    *     be null character if the corresponding part is absent in the input. 
    */
   private char[] decompose() {
-    char[] results = new char[] { '\0', '\0', '\0', '\0' };
 
-    String[] pair = ZhuyinTable.stripTones(composingText.toString());
-    if (pair != null) {
-      // Decompose tones.
-      char tone = pair[1].charAt(0);
-      if (tone != ZhuyinTable.DEFAULT_TONE) {
-        results[3] = tone;
-      }
-
-      // Decompose initials.
-      String syllables = pair[0];
-      if (ZhuyinTable.getInitials(syllables.charAt(0)) > 0) {
-        results [0] = syllables.charAt(0);
-        syllables = syllables.substring(1);
-      }
-
-      // Decompose finals.
-      if (syllables.length() > 0) {
-        if (ZhuyinTable.isYiWuYuFinals(syllables.charAt(0))) {
-          results[1] = syllables.charAt(0);
-          if (syllables.length() > 1) {
-            results[2] = syllables.charAt(1);
-          }
-        } else {
-          results[2] = syllables.charAt(0);
-        }
-      }
-    }
-    return results;
+		char[] results = new char[] { '\0', '\0', '\0', '\0' };
+	
+	    String[] pair = ZhuyinTable.stripTones(composingText.toString());
+	    if (pair != null) {
+	      // Decompose tones.
+	      char tone = pair[1].charAt(0);
+	      if (tone != ZhuyinTable.DEFAULT_TONE) {
+	        results[3] = tone;
+	      }
+	
+	      // Decompose initials.
+	      String syllables = pair[0];
+	      if (ZhuyinTable.getInitials(syllables.charAt(0)) > 0) {
+	        results [0] = syllables.charAt(0);
+	        syllables = syllables.substring(1);
+	      }
+	
+	      // Decompose finals.
+	      if (syllables.length() > 0) {
+	        if (ZhuyinTable.isYiWuYuFinals(syllables.charAt(0))) {
+	          results[1] = syllables.charAt(0);
+	          if (syllables.length() > 1) {
+	            results[2] = syllables.charAt(1);
+	          }
+	        } else {
+	          results[2] = syllables.charAt(0);
+	        }
+	      }
+	    }
+	    return results;    
   }
 
   /**
