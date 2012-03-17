@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright 2010 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Titles for IME  -->
+    <string name="ime_name">注音倉頡輸入法非官方版</string>
+    <string name="zhuyin_ime_name">注音輸入法</string>
+    <string name="cangjie_ime_name">倉頡輸入法</string>
+
+    <!-- Labels on soft keys -->
+    <string name="label_english">英文</string>
+    <string name="label_chinese">中文</string>
+    <string name="label_simplified">速成</string>
+
+    <!-- Preference settings -->
+    <string name="prefs_licensing">授權資訊</string>
+    <string name="prefs_vibrate_title">按鍵震動</string>
+    <string name="prefs_vibrate_key">prefs_vibrate</string>
+    <string name="prefs_sound_title">按鍵音效</string>
+    <string name="prefs_sound_key">prefs_sound</string>
+    <string name="prefs_qwerty5row_title">五排英文鍵盤</string>
+    <string name="prefs_qwerty5row_key">prefs_qwerty5row</string>
+    <string name="prefs_qwerty5row_summary">是否於英文鍵盤上增加一排數字鍵 (會壓縮到鍵盤尺寸)</string>
+    <string name="prefs_ms3_title">MS3 注音鍵盤配置</string>
+    <string name="prefs_ms3_key">prefs_ms3</string>
+    <string name="prefs_ms3_summary">是否使用 Milestone 3 印刷之注音鍵盤配置，MS 1/2 使用者請務必取消勾選</string>
+    
+    <!-- String resources -->
+    <string name="str_needsreopen">為了使用硬體鍵盤，請您先將鍵盤收起再打開</string>
+    <string name="str_notavailable">無法使用</string>
+    
+    <!-- Menu resources -->
+    <string name="menu_barcodescan">QR 碼輸入</string>
+    <string name="menu_voiceinput">語音輸入</string>
+    <string name="menu_settings">輸入法設定</string>
+    <string name="menu_switchIME">切換輸入法</string>
+
+	<!-- Barcode Activity -->
+	<string name="barcode_missing">您需要安裝 ZXing 條碼掃描器以使用 QR 碼輸入功能。您想從 Market 上安裝嗎？</string>
+	
+	<!-- Voice Activity -->
+	<string name="voice_missing">您的裝置必須要有 Google 語音輸入支援 (需要 Android 系統支援)</string>
+	<string name="voice_speaknow">請說話</string>
+	<string name="voice_chooseone">請選擇一個</string>
+</resources>
