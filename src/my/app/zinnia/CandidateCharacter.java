@@ -1,11 +1,11 @@
 package my.app.zinnia;
 
+import com.googlecode.tcime.unofficial.WritingZhuYinIME;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 import my.app.delegate.Clearable;
 import my.app.delegate.Showable;
-import android.widget.EditText;
 
 import android.content.Context;
 import android.os.Handler;
@@ -20,13 +20,11 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	private org.zinnia.Character character = new org.zinnia.Character();
 	private ShowDelegate show = new ShowDelegate();
 	private ClearDelegate clear = new ClearDelegate();
-	private HashMap<Integer, Integer> ZhuYinMapping;
+	public WritingZhuYinIME WZYIME ;
 	
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		recognizer.open("/sdcard/handwriting-ja.model");
-		
-		ZhuYinMapping = new HashMap<Integer, Integer>();
 		
 	}
 	
@@ -71,8 +69,8 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 							button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(View v) {
-								//確認已點選之注音	
-									
+								//確認已點選之注音str	
+									WZYIME.setChosenZhuYin(str);
 									
 								}});
 							CandidateCharacter.this.addView(button);

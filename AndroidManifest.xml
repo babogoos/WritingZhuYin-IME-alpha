@@ -42,7 +42,7 @@
             <meta-data android:name="android.view.im" android:resource="@xml/method" />
         </service>
 
-        <activity android:name="ImePreferenceActivity" android:label="@string/ime_name">
+        <activity android:name="WritingZhuYinIMEalpha" android:label="@string/ime_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>

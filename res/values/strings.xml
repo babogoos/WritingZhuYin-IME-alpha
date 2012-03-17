@@ -19,7 +19,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Titles for IME  -->
-    <string name="ime_name">注音倉頡輸入法非官方版</string>
+    <string name="ime_name">手寫注音輸入法</string>
     <string name="zhuyin_ime_name">注音輸入法</string>
     <string name="cangjie_ime_name">倉頡輸入法</string>
 
