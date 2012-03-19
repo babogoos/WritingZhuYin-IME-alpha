@@ -79,6 +79,7 @@ public final class R {
         /**  Labels on soft keys 
          */
         public static final int label_english=0x7f080003;
+        public static final int label_handwrite=0x7f080018;
         public static final int label_simplified=0x7f080005;
         /**  Menu resources 
          */
@@ -119,6 +120,7 @@ public final class R {
         public static final int qwerty_5row=0x7f040008;
         public static final int symbols=0x7f040009;
         public static final int symbols_shift=0x7f04000a;
-        public static final int zhuyin=0x7f04000b;
+        public static final int writingzhuyin=0x7f04000b;
+        public static final int zhuyin=0x7f04000c;
     }
 }

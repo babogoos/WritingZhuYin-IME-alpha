@@ -57,6 +57,8 @@ public class KeyboardSwitch {
   private SoftKeyboard englishKeyboard;
   private SoftKeyboard chineseKeyboard;
   private SoftKeyboard currentKeyboard;
+  private SoftKeyboard writingKeyboard;
+  
 
   private boolean wasEnglishToSymbol;
   private int currentDisplayWidth;
@@ -90,6 +92,7 @@ public class KeyboardSwitch {
 
     currentDisplayWidth = displayWidth;
     chineseKeyboard = new SoftKeyboard(context, chineseKeyboardId);
+    writingKeyboard = new SoftKeyboard(context, chineseKeyboardId);
     numberSymbolKeyboard = new SoftKeyboard(context, R.xml.symbols);
     shiftSymbolKeyboard = new SoftKeyboard(context, R.xml.symbols_shift);
     englishKeyboard = new SoftKeyboard(context, (qwerty5row ? R.xml.qwerty_5row : R.xml.qwerty));
@@ -104,6 +107,8 @@ public class KeyboardSwitch {
         toEnglish();
       } else if (currentKeyboard.isChinese()) {
         toChinese();
+      } else if (currentKeyboard.isWriting()) {
+        toWriting();
       } else if (currentKeyboard.isNumberSymbol()) {
         toNumberSymbol();
       } else if (currentKeyboard.isShiftSymbol()) {
@@ -172,7 +177,16 @@ public class KeyboardSwitch {
           toEnglish();
         }
         return true;
-
+        
+      case SoftKeyboard.KEYCODE_WRITING:
+          if (currentKeyboard.isWriting()) {
+            toWriting();
+          } else {
+            toChinese();
+          }
+          return true;  
+      
+      
       case Keyboard.KEYCODE_MODE_CHANGE:
         if (currentKeyboard.isSymbols()) {
           toNonSymbols();
@@ -219,6 +233,9 @@ public class KeyboardSwitch {
     currentKeyboard = chineseKeyboard;
   }
 
+   private void toWriting() {
+    currentKeyboard = writingKeyboard;
+  }
   /**
    * Switches from symbol (number-symbol or shift-symbol) keyboard,
    * back to the non-symbol (English or Chinese) keyboard.

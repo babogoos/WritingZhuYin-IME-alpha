@@ -8,16 +8,18 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class WritingZhuYinIME extends ZhuyinIME{
+public class WritingZhuYinIME extends AbstractIME{
 	private boolean isAltUsed = false;
 	private String chosenzhuyin = "";
 	private HashMap<String,Integer > ZhuYinMapping;
@@ -27,7 +29,7 @@ public class WritingZhuYinIME extends ZhuyinIME{
 	}
 	@Override
 	protected KeyboardSwitch createKeyboardSwitch(Context context) {
-	 return new KeyboardSwitch(context, R.xml.zhuyin);
+	 return new KeyboardSwitch(context, R.xml.writingzhuyin);
 	}
 
 	@Override
@@ -110,75 +112,27 @@ public class WritingZhuYinIME extends ZhuyinIME{
 		ZhuYinMapping.put("ㄥ", 0x3125); //ㄥ
 		ZhuYinMapping.put("ㄦ", 0x3126); //ㄦ
 	  //ZhuYinMapping.put("", 0x3126); // MS1/2 fix: KEYCODE_AT(@) as KEYCODE_MINUS(-)
-	/*	ZhuYinMapping.put("", 0x2C7); //三聲ˇ
+		ZhuYinMapping.put("", 0x2C7); //三聲ˇ
 		ZhuYinMapping.put("", 0x2CB); //四聲ˋ
 		ZhuYinMapping.put("", 0x2CA); //二聲ˊ
 		ZhuYinMapping.put("", 0x2D9); //輕聲˙
-	*/	
-		
-        
-        
-        
-        
+	 
 	}
 	
 	@Override 
 	public void onInitializeInterface() {
 		 super.onInitializeInterface();
 	}
-	
-	LinearLayout layout;
-	my.app.zinnia.InputView draw;
-	my.app.zinnia.CandidateCharacter character;
-	LinearLayout candidate;
-	EditText edit;
-	Button commit;
-	Button clear;
-	@Override
-	public View onCreateInputView(){
-		
-		super.onCreateInputView();
-		
-		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
-		
-		character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
-		character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
-		layout.addView(character);
-		
-		candidate = (LinearLayout)getLayoutInflater().inflate(R.layout.candidate,null);
-		candidate.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
-		edit=(EditText)candidate.getChildAt(1);
-		
-		commit=(Button)candidate.getChildAt(2);
-		
-		commit.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				InputConnection ic = getCurrentInputConnection();
-				ic.commitText(edit.getText().toString(), 1);
-				edit.setText("");
-			}});
-		
-		clear=(Button)candidate.getChildAt(3);
-		
-		clear.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				edit.setText("");
-				character.clear();
-				draw.clear();
-			}});
-		
-		layout.addView(candidate);
-		
-		
-		draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.input, null);
-		draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
-		layout.addView(draw);	
-		draw.setResultView(character);
-		
-		return layout;
+	public void onStartInput(EditorInfo attribute, boolean restarting){
+		super.onStartInput(attribute, restarting);
+		showStatusIcon(keyboardSwitch.getLanguageIcon());
 	}
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		showStatusIcon(keyboardSwitch.getLanguageIcon());
+	}
+	
+	
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

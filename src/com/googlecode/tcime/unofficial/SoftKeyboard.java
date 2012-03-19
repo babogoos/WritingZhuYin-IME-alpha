@@ -30,6 +30,8 @@ public class SoftKeyboard extends Keyboard {
   public static final int KEYCODE_OPTIONS = -100;
   public static final int KEYCODE_ENTER = 10;
   public static final int KEYCODE_SPACE = 32;
+  public static final int KEYCODE_WRITING = -123;
+  
   private static final String ESCAPE_LABEL = "Esc";
   
   public final int id;
@@ -69,6 +71,10 @@ public class SoftKeyboard extends Keyboard {
   public boolean isShiftSymbol() {
     return id == R.xml.symbols_shift;
   }
+  
+  public boolean isWriting() {
+	    return id == R.xml.writingzhuyin;
+	  }
 
   /**
    * Returns {@code true} if the current keyboard is the symbol (number-symbol
