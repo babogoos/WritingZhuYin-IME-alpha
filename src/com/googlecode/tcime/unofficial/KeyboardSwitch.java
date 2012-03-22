@@ -57,10 +57,11 @@ public class KeyboardSwitch {
   private SoftKeyboard englishKeyboard;
   private SoftKeyboard chineseKeyboard;
   private SoftKeyboard currentKeyboard;
-  private SoftKeyboard writingKeyboard;
+  public SoftKeyboard writingKeyboard;
   
 
   private boolean wasEnglishToSymbol;
+  private boolean wasChineseToSymbol;
   private int currentDisplayWidth;
   
   private static final int[] ICON_RES_ID = new int[]{ R.drawable.ime_en, R.drawable.ime_ch };
@@ -92,7 +93,7 @@ public class KeyboardSwitch {
 
     currentDisplayWidth = displayWidth;
     chineseKeyboard = new SoftKeyboard(context, chineseKeyboardId);
-    writingKeyboard = new SoftKeyboard(context, chineseKeyboardId);
+    writingKeyboard = new SoftKeyboard(context, R.xml.writingzhuyin);
     numberSymbolKeyboard = new SoftKeyboard(context, R.xml.symbols);
     shiftSymbolKeyboard = new SoftKeyboard(context, R.xml.symbols_shift);
     englishKeyboard = new SoftKeyboard(context, (qwerty5row ? R.xml.qwerty_5row : R.xml.qwerty));
@@ -180,9 +181,9 @@ public class KeyboardSwitch {
         
       case SoftKeyboard.KEYCODE_WRITING:
           if (currentKeyboard.isWriting()) {
-            toWriting();
-          } else {
             toChinese();
+          } else {
+            toWriting();
           }
           return true;  
       
@@ -244,9 +245,10 @@ public class KeyboardSwitch {
     if (currentKeyboard.isSymbols()) {
       if (wasEnglishToSymbol) {
         toEnglish();
-      } else {
+      } else if (wasChineseToSymbol){
         toChinese();
       }
+      else toWriting();
     }
   }
   

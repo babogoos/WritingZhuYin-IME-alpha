@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -71,6 +72,8 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 								public void onClick(View v) {
 								//確認已點選之注音str	
 									WZYIME.setChosenZhuYin(str);
+									character.clear();
+									draw.clear();
 									
 								}});
 							CandidateCharacter.this.addView(button);

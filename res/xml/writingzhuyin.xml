@@ -35,7 +35,7 @@
 	</Row>
     <Row  android:rowEdgeFlags="bottom" android:keyHeight="@dimen/key_height_bottom_row" >
         <Key android:codes="-200" android:keyLabel="@string/label_english" android:keyWidth="12%p"/>
-         <Key  android:codes="-123" android:keyLabel="@string/label_handwrite" 
+         <Key  android:codes="-123" android:keyLabel="@string/label_chinese" 
                  android:keyWidth="11%p"/>
         <Key android:codes="-2" android:keyLabel="123" android:keyWidth="12%p"
                 android:isSticky="true" android:isModifier="false"/>

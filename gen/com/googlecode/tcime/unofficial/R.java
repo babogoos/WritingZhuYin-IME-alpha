@@ -54,13 +54,18 @@ public final class R {
         public static final int arrow_right=0x7f090003;
         public static final int candidate_view=0x7f090002;
         public static final int candidates_container=0x7f090000;
+        public static final int invisible=0x7f090005;
         public static final int keyboard=0x7f090004;
-        public static final int license_view=0x7f090005;
+        public static final int license_view=0x7f090007;
+        public static final int writingboard=0x7f090006;
     }
     public static final class layout {
         public static final int candidates=0x7f030000;
-        public static final int input=0x7f030001;
-        public static final int licensing=0x7f030002;
+        public static final int character=0x7f030001;
+        public static final int input=0x7f030002;
+        public static final int invisible=0x7f030003;
+        public static final int licensing=0x7f030004;
+        public static final int writingboard=0x7f030005;
     }
     public static final class raw {
         public static final int dict_cangjie=0x7f050000;

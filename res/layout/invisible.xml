@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  
+    xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:id="@+id/invisible"
+    android:background="#00000000"
+    android:orientation="vertical"  
+    android:layout_width="fill_parent"  
+    android:layout_height="wrap_content">  
+    <!-- 手寫板View -->  
+    <my.app.zinnia.InputView 
+        android:id="@+id/writingboard"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content" />  
+  
+    <!-- 功能按鍵View -->  
+    <android.inputmethodservice.KeyboardView  
+        android:id="@+id/keyboard"  
+        android:layout_alignParentBottom="true"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content" />  
+</LinearLayout>

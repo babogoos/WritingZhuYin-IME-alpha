@@ -24,6 +24,7 @@ public class WritingZhuYinIME extends AbstractIME{
 	private String chosenzhuyin = "";
 	private HashMap<String,Integer > ZhuYinMapping;
 	
+	
 	public void setChosenZhuYin(String str) {
 		this.chosenzhuyin = str;
 	}
@@ -41,7 +42,7 @@ public class WritingZhuYinIME extends AbstractIME{
 	protected WordDictionary createWordDictionary(Context context) {
 	  return new ZhuyinDictionary(context);
 	}
-
+	@Override
 	public void onCreate() {
 		super.onCreate();
 		
@@ -123,6 +124,36 @@ public class WritingZhuYinIME extends AbstractIME{
 	public void onInitializeInterface() {
 		 super.onInitializeInterface();
 	}
+	
+	
+	LinearLayout layout;
+	my.app.zinnia.InputView draw;
+	my.app.zinnia.CandidateCharacter character;
+
+	EditText edit;
+	Button commit;
+	Button clear;
+	@Override
+	public View onCreateInputView(){
+		
+		super.onCreateInputView();
+		
+		
+		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
+		
+		character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
+		character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
+		layout.addView(character);
+		draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
+		draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
+		layout.addView(draw);	
+		draw.setResultView(character);
+		layout.addView(inputView);
+		return layout;
+	}
+	
+	
+	
 	public void onStartInput(EditorInfo attribute, boolean restarting){
 		super.onStartInput(attribute, restarting);
 		showStatusIcon(keyboardSwitch.getLanguageIcon());
@@ -148,7 +179,7 @@ public class WritingZhuYinIME extends AbstractIME{
 				}
 				// Handle Delete
 				if(keyCode == KeyEvent.KEYCODE_DEL){
-					onKey(SoftKeyboard.KEYCODE_DELETE, null);
+					onKey(SoftKeyboard.KEYCODE_SPACE, null);
 					return true;
 				}
 				// Handle Space
