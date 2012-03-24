@@ -34,7 +34,7 @@ public class SoftKeyboardView extends KeyboardView {
   private static final int FULL_WIDTH_OFFSET = 0xFEE0;
   private static final int UPPER_CASE_OFFSET = -32;
 
-  private SoftKeyboard currentKeyboard;
+  public SoftKeyboard currentKeyboard;
   private boolean capsLock;
   private boolean cangjieSimplified;
 

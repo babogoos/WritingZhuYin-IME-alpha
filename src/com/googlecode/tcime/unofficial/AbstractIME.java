@@ -34,8 +34,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import android.view.ViewGroup.LayoutParams;
 /**
  * Abstract class extended by ZhuyinIME and CangjieIME.
  */
@@ -44,6 +45,7 @@ public abstract class AbstractIME extends InputMethodService implements
 
   public static final String TEXT_GOT = "com.googlecode.tcime.unofficial.TEXT_GOT";
   private String textGot = "";
+  private String chosenzhuyin = "";
   protected SoftKeyboardView inputView;
   protected CandidatesContainer candidatesContainer;
   protected KeyboardSwitch keyboardSwitch;
@@ -134,12 +136,41 @@ public abstract class AbstractIME extends InputMethodService implements
     super.onComputeInsets(outInsets);
     outInsets.contentTopInsets = outInsets.visibleTopInsets;
   }
+  
+  
+  	LinearLayout layout;
+	my.app.zinnia.InputView draw;
+	my.app.zinnia.CandidateCharacter character;
 
+	public void setChosenZhuYin(String str) {
+		this.chosenzhuyin = str;
+	}
+  
+  private View WritingKeyboardView(){
+		  
+		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
+		inputView = (SoftKeyboardView) getLayoutInflater().inflate(
+		        R.layout.input, null);
+		inputView.setOnKeyboardActionListener(this);
+		character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
+		character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
+		layout.addView(character);
+		draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
+		draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
+		layout.addView(draw);	
+		draw.setResultView(character);
+
+		layout.addView(inputView);
+	  //return inputView.currentKeyboard.isWriting()? layout  : inputView;
+		return layout;
+  }
+  
   @Override
   public View onCreateInputView() {
     inputView = (SoftKeyboardView) getLayoutInflater().inflate(
         R.layout.input, null);
     inputView.setOnKeyboardActionListener(this);
+   // return inputView.currentKeyboard.isWriting()? WritingKeyboardView() : inputView;
     return inputView;
   }
 

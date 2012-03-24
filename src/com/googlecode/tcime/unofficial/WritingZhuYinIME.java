@@ -24,10 +24,6 @@ public class WritingZhuYinIME extends AbstractIME{
 	private String chosenzhuyin = "";
 	private HashMap<String,Integer > ZhuYinMapping;
 	
-	
-	public void setChosenZhuYin(String str) {
-		this.chosenzhuyin = str;
-	}
 	@Override
 	protected KeyboardSwitch createKeyboardSwitch(Context context) {
 	 return new KeyboardSwitch(context, R.xml.writingzhuyin);
@@ -42,6 +38,10 @@ public class WritingZhuYinIME extends AbstractIME{
 	protected WordDictionary createWordDictionary(Context context) {
 	  return new ZhuyinDictionary(context);
 	}
+	public void setChosenZhuYin(String str) {
+		this.chosenzhuyin = str;
+	}
+	/*
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -193,6 +193,6 @@ public class WritingZhuYinIME extends AbstractIME{
 					return true;
 				}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
 }
 

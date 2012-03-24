@@ -93,7 +93,7 @@ public class ZhuyinIME extends AbstractIME {
 		keyMapping.put(13, 0x2CA); //二聲ˊ
 		keyMapping.put(14, 0x2D9); //輕聲˙
 	}
-
+	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting){
 		super.onStartInput(attribute, restarting);
 		showStatusIcon(keyboardSwitch.getLanguageIcon());
