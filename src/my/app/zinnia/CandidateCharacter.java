@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class CandidateCharacter extends LinearLayout implements Showable{
@@ -21,11 +22,16 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	private org.zinnia.Character character = new org.zinnia.Character();
 	private ShowDelegate show = new ShowDelegate();
 	private ClearDelegate clear = new ClearDelegate();
-	public WritingZhuYinIME WZYIME ;
+	private EditText edit; 
+	
+	public void setEditText(EditText edit) {
+		this.edit = edit;
+	}
 	
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		recognizer.open("/sdcard/handwriting-ja.model");
+		
 		
 	}
 	
@@ -70,8 +76,7 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 							button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(View v) {
-								//確認已點選之注音str	
-									WZYIME.setChosenZhuYin(str);
+									edit.append(str);
 									character.clear();
 									draw.clear();
 									

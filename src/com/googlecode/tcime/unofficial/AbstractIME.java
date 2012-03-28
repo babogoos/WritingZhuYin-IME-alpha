@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.view.ViewGroup.LayoutParams;
@@ -139,39 +140,48 @@ public abstract class AbstractIME extends InputMethodService implements
   
   
   	LinearLayout layout;
+  	LinearLayout Test;
 	my.app.zinnia.InputView draw;
 	my.app.zinnia.CandidateCharacter character;
+	EditText edit;
 
 	public void setChosenZhuYin(String str) {
 		this.chosenzhuyin = str;
 	}
-  
+  /*
   private View WritingKeyboardView(){
 		  
 		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
 		inputView = (SoftKeyboardView) getLayoutInflater().inflate(
 		        R.layout.input, null);
 		inputView.setOnKeyboardActionListener(this);
-		character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
-		character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
-		layout.addView(character);
-		draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
-		draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
-		layout.addView(draw);	
-		draw.setResultView(character);
+	character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
+	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
+	Test.addView(character);
+		
+		
 
 		layout.addView(inputView);
 	  //return inputView.currentKeyboard.isWriting()? layout  : inputView;
 		return layout;
   }
-  
+  */
   @Override
   public View onCreateInputView() {
+	Test = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
     inputView = (SoftKeyboardView) getLayoutInflater().inflate(
         R.layout.input, null);
     inputView.setOnKeyboardActionListener(this);
-   // return inputView.currentKeyboard.isWriting()? WritingKeyboardView() : inputView;
-    return inputView;
+    character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
+	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
+	Test.addView(character);
+    draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
+	draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
+	Test.addView(draw);
+	draw.setResultView(character);
+    Test.addView(inputView);
+    //return inputView.currentKeyboard.isWriting()? WritingKeyboardView() : inputView;
+    return Test;
   }
 
   @Override
@@ -295,6 +305,26 @@ public abstract class AbstractIME extends InputMethodService implements
     }
     handleKey(primaryCode);
   }
+  /*  public void onHandWritingKey(int primaryCode, int[] keyCodes) {
+    if (keyboardSwitch.onKey(primaryCode)) {
+      escape();
+      bindKeyboardToInputView();
+      return;
+    }
+    if (handleOption(primaryCode) || handleCapsLock(primaryCode)
+        || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
+        || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
+      return;
+    }
+    
+    if(inputView.currentKeyboard.isWriting()){
+    	handleKey(edit.getText().toString().hashCode());
+    	return;
+    }
+    handleKey(primaryCode);
+  }
+  */
+  
 
   public void onText(CharSequence text) {
     commitText(text);
