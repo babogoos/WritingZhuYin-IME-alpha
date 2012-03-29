@@ -1,6 +1,5 @@
 package my.app.zinnia;
 
-import com.googlecode.tcime.unofficial.WritingZhuYinIME;
 import java.util.ArrayList;
 
 
@@ -10,6 +9,7 @@ import my.app.delegate.Showable;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,11 +22,10 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	private org.zinnia.Character character = new org.zinnia.Character();
 	private ShowDelegate show = new ShowDelegate();
 	private ClearDelegate clear = new ClearDelegate();
-	private EditText edit; 
+	//private EditText edit; 
+	public String chosenZhuYin;
 	
-	public void setEditText(EditText edit) {
-		this.edit = edit;
-	}
+	
 	
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -76,17 +75,20 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 							button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(View v) {
-									edit.append(str);
+									chosenZhuYin = str;
+									Log.v(chosenZhuYin, "Is" +chosenZhuYin);
 									character.clear();
 									draw.clear();
 									
 								}});
 							CandidateCharacter.this.addView(button);
+							
 						}
 					}
 					invalidate();
 				}});
 		}
+		
 	 } 
 	private class ShowDelegate implements Showable{
 		Object atomicTask = new Object();

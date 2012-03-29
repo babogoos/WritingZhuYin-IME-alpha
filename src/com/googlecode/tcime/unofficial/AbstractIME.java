@@ -298,35 +298,18 @@ public abstract class AbstractIME extends InputMethodService implements
       bindKeyboardToInputView();
       return;
     }
-    if (handleOption(primaryCode) || handleCapsLock(primaryCode)
-        || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
-        || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
-      return;
-    }
-    handleKey(primaryCode);
-  }
-  /*  public void onHandWritingKey(int primaryCode, int[] keyCodes) {
-    if (keyboardSwitch.onKey(primaryCode)) {
-      escape();
-      bindKeyboardToInputView();
-      return;
-    }
-    if (handleOption(primaryCode) || handleCapsLock(primaryCode)
-        || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
-        || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
-      return;
-    }
     
     if(inputView.currentKeyboard.isWriting()){
-    	handleKey(edit.getText().toString().hashCode());
-    	return;
+    	handleComposing(character.chosenZhuYin.hashCode());
+    }
+    if (handleOption(primaryCode) || handleCapsLock(primaryCode)
+       || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
+       || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
+      return;
     }
     handleKey(primaryCode);
-  }
-  */
-  
-
-  public void onText(CharSequence text) {
+  }  
+   public void onText(CharSequence text) {
     commitText(text);
   }
 
@@ -480,7 +463,7 @@ public abstract class AbstractIME extends InputMethodService implements
     return false;
   }
 
-  private boolean handleComposing(int keyCode) {
+  public boolean handleComposing(int keyCode) {
     if (editor.compose(getCurrentInputConnection(), keyCode)) {
       // Set the candidates for the updated composing-text and provide default
       // highlight for the word candidates.
