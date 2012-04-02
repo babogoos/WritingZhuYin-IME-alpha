@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import com.googlecode.tcime.unofficial.ZhuyinIME;
 
 /**
  * Switches between four input modes: two symbol modes (number-symbol and
@@ -220,22 +221,37 @@ public class KeyboardSwitch {
     }
 
     currentKeyboard = numberSymbolKeyboard;
+    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
   }
   
   private void toShiftSymbol() {
     currentKeyboard = shiftSymbolKeyboard;
+    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
   }
 
   private void toEnglish() {
     currentKeyboard = englishKeyboard;
+    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
   }
 
   private void toChinese() {
     currentKeyboard = chineseKeyboard;
+    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
   }
 
    private void toWriting() {
     currentKeyboard = writingKeyboard;
+    ZhuyinIME.text.setVisibility(ZhuyinIME.text.VISIBLE);
+    ZhuyinIME.character.setVisibility(ZhuyinIME.character.VISIBLE);
+    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.VISIBLE);
   }
   /**
    * Switches from symbol (number-symbol or shift-symbol) keyboard,

@@ -2,6 +2,8 @@ package my.app.zinnia;
 
 import java.util.ArrayList;
 
+import com.googlecode.tcime.unofficial.AbstractIME;
+
 
 import my.app.delegate.Clearable;
 import my.app.delegate.Showable;
@@ -15,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class CandidateCharacter extends LinearLayout implements Showable{
 	private Handler handler = new Handler();
@@ -22,20 +25,14 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	private org.zinnia.Character character = new org.zinnia.Character();
 	private ShowDelegate show = new ShowDelegate();
 	private ClearDelegate clear = new ClearDelegate();
-	//private EditText edit; 
 	public String chosenZhuYin;
 	
 	
 	
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		recognizer.open("/sdcard/handwriting-ja.model");
-		
-		
+		recognizer.open("data/data/com.googlecode.tcime.unofficial/files/handwriting-ja.model");
 	}
-	
-	
-	
 	private class SearchResultDelegate implements Runnable{
 		Draw draw;  
 		ArrayList<String> resultList;
@@ -75,8 +72,8 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 							button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(View v) {
-									chosenZhuYin = str;
-									Log.v(chosenZhuYin, "Is" +chosenZhuYin);
+									//chosenZhuYin = str;
+									AbstractIME.text.setText(str);
 									character.clear();
 									draw.clear();
 									

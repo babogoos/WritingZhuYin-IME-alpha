@@ -28,10 +28,11 @@
     android:keyHeight="@dimen/key_height_5row"
     >
 	<Row>
-	<Key android:codes="711" android:keyWidth="25%p" android:keyLabel="ˇ"/>
-	<Key android:codes="715" android:keyWidth="25%p" android:keyLabel="ˋ"/>
-	<Key android:codes="714" android:keyWidth="25%p" android:keyLabel="ˊ"/>
-	<Key android:codes="729" android:keyWidth="25%p" android:keyLabel="˙"/>
+	<Key android:codes="711" android:keyWidth="20%p" android:keyLabel="ˇ"/>
+	<Key android:codes="715" android:keyWidth="20%p" android:keyLabel="ˋ"/>
+	<Key android:codes="714" android:keyWidth="20%p" android:keyLabel="ˊ"/>
+	<Key android:codes="729" android:keyWidth="20%p" android:keyLabel="˙"/>
+	<Key android:codes="-80" android:keyWidth="20%p" android:keyLabel="@string/lable_sent"/>
 	</Row>
     <Row  android:rowEdgeFlags="bottom" android:keyHeight="@dimen/key_height_bottom_row" >
         <Key android:codes="-200" android:keyLabel="@string/label_english" android:keyWidth="12%p"/>

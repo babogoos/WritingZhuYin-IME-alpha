@@ -56,7 +56,8 @@ public final class R {
         public static final int candidates_container=0x7f090000;
         public static final int invisible=0x7f090005;
         public static final int keyboard=0x7f090004;
-        public static final int license_view=0x7f090006;
+        public static final int license_view=0x7f090007;
+        public static final int textView1=0x7f090006;
     }
     public static final class layout {
         public static final int candidates=0x7f030000;
@@ -85,6 +86,7 @@ public final class R {
         public static final int label_english=0x7f080003;
         public static final int label_handwrite=0x7f080018;
         public static final int label_simplified=0x7f080005;
+        public static final int lable_sent=0x7f080019;
         /**  Menu resources 
          */
         public static final int menu_barcodescan=0x7f080010;

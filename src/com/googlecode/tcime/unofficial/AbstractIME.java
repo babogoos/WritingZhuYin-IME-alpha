@@ -16,12 +16,18 @@
 
 package com.googlecode.tcime.unofficial;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
@@ -36,6 +42,7 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.ViewGroup.LayoutParams;
 /**
@@ -98,6 +105,34 @@ public abstract class AbstractIME extends InputMethodService implements
     registerReceiver(txtReceiver, iFilter);
     // Use the following line to debug IME service.
     android.os.Debug.waitForDebugger();
+    
+	AssetManager assetManager = getAssets();
+    InputStream inputStream = null;
+	
+    try {
+        // 指定/assets/handwriting-ja.model
+   inputStream = assetManager.open("handwriting-ja.model");
+   
+       byte[] bytes = new byte[4096];
+   
+   int len = -1;
+   		//開新檔案在應用程式資料夾
+   File file = new File(this.getFilesDir(),"handwriting-ja.model");
+   //Log.i("FilesDir",this.getFilesDir().toString());
+   FileOutputStream outputStream = new FileOutputStream(file);
+   
+   while ((len = inputStream.read(bytes)) != -1){
+   	outputStream.write(bytes, 0, len);
+   }
+   
+   inputStream.close();
+   outputStream.close();
+   
+  } catch (IOException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+    
   }
 
   @Override
@@ -141,14 +176,14 @@ public abstract class AbstractIME extends InputMethodService implements
   
   	LinearLayout layout;
   	LinearLayout Test;
-	my.app.zinnia.InputView draw;
-	my.app.zinnia.CandidateCharacter character;
-	EditText edit;
-
+  	public static my.app.zinnia.InputView draw;
+  	public static my.app.zinnia.CandidateCharacter character;
+	public static TextView text;
+/*
 	public void setChosenZhuYin(String str) {
 		this.chosenzhuyin = str;
 	}
-  /*
+  
   private View WritingKeyboardView(){
 		  
 		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
@@ -173,14 +208,20 @@ public abstract class AbstractIME extends InputMethodService implements
         R.layout.input, null);
     inputView.setOnKeyboardActionListener(this);
     character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
-	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
+	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));
+	text = (TextView) Test.getChildAt(0);
 	Test.addView(character);
     draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
 	draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
 	Test.addView(draw);
 	draw.setResultView(character);
     Test.addView(inputView);
-    //return inputView.currentKeyboard.isWriting()? WritingKeyboardView() : inputView;
+    //visibility
+    text.setVisibility(text.GONE);
+    character.setVisibility(character.GONE);
+    draw.setVisibility(draw.GONE);
+    
+    
     return Test;
   }
 
@@ -292,19 +333,27 @@ public abstract class AbstractIME extends InputMethodService implements
     return super.onKeyDown(keyCode, event);
   }
 
+  public void onHandWritingKey(){
+	  handleComposing(text.getText().toString().hashCode());
+	  text.setText("");
+	  character.clear();
+	  draw.clear();
+  }
+  
+  
   public void onKey(int primaryCode, int[] keyCodes) {
     if (keyboardSwitch.onKey(primaryCode)) {
       escape();
       bindKeyboardToInputView();
       return;
     }
-    
-    if(inputView.currentKeyboard.isWriting()){
-    	handleComposing(character.chosenZhuYin.hashCode());
+    if (primaryCode == -80){
+    	onHandWritingKey();
+    	return;
     }
     if (handleOption(primaryCode) || handleCapsLock(primaryCode)
        || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
-       || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
+       || handleDPAD(primaryCode) || handleComposing(primaryCode)) {    		
       return;
     }
     handleKey(primaryCode);

@@ -6,19 +6,8 @@
     android:orientation="vertical"  
     android:layout_width="fill_parent"  
     android:layout_height="wrap_content">
-    
-      <!-- 注音View --> 
-	<!--my.app.zinnia.CandidateCharacter 
-        android:id="@+id/character"  
-        android:layout_width="fill_parent"  
-        android:layout_height="50px" /-->  
-    
-    <!-- 手寫板View -->  
-    <!--  my.app.zinnia.InputView 
-        android:id="@+id/writingboard"  
-        android:background="#33333333"
-        android:layout_width="fill_parent"  
-        android:layout_height="200px" /-->  
+
+    <TextView android:text="TextView" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>  
   
   
 </LinearLayout>
