@@ -2,7 +2,7 @@
 
 <my.app.zinnia.InputView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="#FFFFFFFF"
+        android:background="#BBBAF4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 />

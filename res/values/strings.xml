@@ -56,5 +56,5 @@
 	<string name="voice_speaknow">請說話</string>
 	<string name="voice_chooseone">請選擇一個</string>
 	<string name="label_handwrite">手寫</string>
-	<string name="lable_sent">Sent</string>
+	<string name="lable_clear">Clear</string>
 </resources>

@@ -17,10 +17,6 @@
  */
 -->
 <LinearLayout>
-
-
-
-
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
     android:horizontalGap="0px"	
@@ -32,7 +28,7 @@
 	<Key android:codes="715" android:keyWidth="20%p" android:keyLabel="ˋ"/>
 	<Key android:codes="714" android:keyWidth="20%p" android:keyLabel="ˊ"/>
 	<Key android:codes="729" android:keyWidth="20%p" android:keyLabel="˙"/>
-	<Key android:codes="-80" android:keyWidth="20%p" android:keyLabel="@string/lable_sent"/>
+	<Key android:codes="-80" android:keyWidth="20%p" android:keyLabel="@string/lable_clear"/>
 	</Row>
     <Row  android:rowEdgeFlags="bottom" android:keyHeight="@dimen/key_height_bottom_row" >
         <Key android:codes="-200" android:keyLabel="@string/label_english" android:keyWidth="12%p"/>
@@ -44,7 +40,7 @@
         <Key android:codes="65292" android:keyWidth="12%p"
                 android:keyLabel="，"
                 android:iconPreview="@drawable/comma_popup_icon"
-                android:popupKeyboard="@xml/popup_punctuation_ch"/>
+                android:popupKeyboard="@xml/popup_punctuation_wr"/>
         <Key android:codes="32" android:keyIcon="@drawable/space_icon" 
                 android:iconPreview="@drawable/space_popup_icon"
                 android:keyWidth="20%p" android:isRepeatable="true"/>

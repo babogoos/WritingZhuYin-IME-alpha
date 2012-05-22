@@ -19,8 +19,15 @@ package com.googlecode.tcime.unofficial;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.util.Log;
+
 import com.googlecode.tcime.unofficial.ZhuyinIME;
 
 /**
@@ -59,7 +66,7 @@ public class KeyboardSwitch {
   private SoftKeyboard chineseKeyboard;
   private SoftKeyboard currentKeyboard;
   public SoftKeyboard writingKeyboard;
-  
+  public ZhuyinIME zhuyinIME;
 
   private boolean wasEnglishToSymbol;
   private boolean wasChineseToSymbol;
@@ -102,6 +109,7 @@ public class KeyboardSwitch {
     if (currentKeyboard == null) {
       // Select English keyboard at the first time the input method is launched.
       toEnglish();
+      
     } else {
       // Preserve the selected keyboard and its shift-status.
       boolean isShifted = currentKeyboard.isShifted();
@@ -210,6 +218,7 @@ public class KeyboardSwitch {
     // Return false if the key isn't consumed to switch a keyboard.
     return false;
   }
+  
 
   /**
    * Switches to the number-symbol keyboard and remembers if it was English.
@@ -218,40 +227,49 @@ public class KeyboardSwitch {
     if (!currentKeyboard.isSymbols()) {
       // Remember the current non-symbol keyboard to switch back from symbols.
       wasEnglishToSymbol = currentKeyboard.isEnglish();
+      zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+      zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+      zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
     }
 
     currentKeyboard = numberSymbolKeyboard;
-    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    
   }
   
   private void toShiftSymbol() {
     currentKeyboard = shiftSymbolKeyboard;
-    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    
   }
 
   private void toEnglish() {
     currentKeyboard = englishKeyboard;
-    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    
   }
 
   private void toChinese() {
     currentKeyboard = chineseKeyboard;
-    ZhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    ZhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
+    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+     
   }
-
+  
    private void toWriting() {
     currentKeyboard = writingKeyboard;
-    ZhuyinIME.text.setVisibility(ZhuyinIME.text.VISIBLE);
-    ZhuyinIME.character.setVisibility(ZhuyinIME.character.VISIBLE);
-    ZhuyinIME.draw.setVisibility(ZhuyinIME.draw.VISIBLE);
+    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
+    zhuyinIME.character.setVisibility(ZhuyinIME.character.VISIBLE);
+    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.VISIBLE);
+    //zhuThreadHandler.postDelayed(R1,5000);
+    //zhuThreadHandler.post(R1);
   }
   /**
    * Switches from symbol (number-symbol or shift-symbol) keyboard,

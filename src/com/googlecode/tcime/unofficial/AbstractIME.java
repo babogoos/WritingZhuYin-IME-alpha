@@ -32,6 +32,9 @@ import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -40,7 +43,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +55,8 @@ public abstract class AbstractIME extends InputMethodService implements
 
   public static final String TEXT_GOT = "com.googlecode.tcime.unofficial.TEXT_GOT";
   private String textGot = "";
-  private String chosenzhuyin = "";
+  private final int UPDATE_UI = 1; 
+  public static String chosenzhuyin = "11";
   protected SoftKeyboardView inputView;
   protected CandidatesContainer candidatesContainer;
   protected KeyboardSwitch keyboardSwitch;
@@ -71,7 +74,11 @@ public abstract class AbstractIME extends InputMethodService implements
   private static final int MENU_VOICEINPUT = 3; //1
   private static final int MENU_SETTINGS = 0; //2
   private static final int MENU_SWITCHIME = 1; //3
-
+  
+  HandlerThread zhuthread;
+  Handler zhuThreadHandler;
+  Message msg;
+  
   protected abstract KeyboardSwitch createKeyboardSwitch(Context context);
   protected abstract Editor createEditor();
   protected abstract WordDictionary createWordDictionary(Context context);
@@ -104,42 +111,88 @@ public abstract class AbstractIME extends InputMethodService implements
     iFilter.addAction(TEXT_GOT);
     registerReceiver(txtReceiver, iFilter);
     // Use the following line to debug IME service.
-    android.os.Debug.waitForDebugger();
+    //android.os.Debug.waitForDebugger();
     
-	AssetManager assetManager = getAssets();
-    InputStream inputStream = null;
-	
-    try {
-        // 指定/assets/handwriting-ja.model
-   inputStream = assetManager.open("handwriting-ja.model");
-   
-       byte[] bytes = new byte[4096];
-   
-   int len = -1;
-   		//開新檔案在應用程式資料夾
-   File file = new File(this.getFilesDir(),"handwriting-ja.model");
-   //Log.i("FilesDir",this.getFilesDir().toString());
-   FileOutputStream outputStream = new FileOutputStream(file);
-   
-   while ((len = inputStream.read(bytes)) != -1){
-   	outputStream.write(bytes, 0, len);
-   }
-   
-   inputStream.close();
-   outputStream.close();
-   
-  } catch (IOException e) {
-   // TODO Auto-generated catch block
-   e.printStackTrace();
-  }
+    zhuthread= new HandlerThread("zhu");
+    zhuthread.start();
+    zhuThreadHandler = new Handler(){
+    	
+  	  public synchronized void handleMessage(Message msg) {
+  		switch (msg.what){  
+        case UPDATE_UI:{
+        	onHandWritingKey((Integer)msg.obj);
+        break;  
+        }  
+         default:  
+         break;  
+  		}  
+  		 super.handleMessage(msg);
+  	  }
+  	  };
+    
+    zhuThreadHandler.post(R1);
+    
+    Message m = new Message();
+    
+    
+    
+		AssetManager assetManager = getAssets();
+	    InputStream inputStream = null;
+		
+	    try {
+	        // ������/assets/handwriting-ja.model
+	   inputStream = assetManager.open("handwriting-ja.model");
+	   
+	       byte[] bytes = new byte[4096];
+	   
+	   int len = -1;
+	   		//������������������������������������
+	   File file = new File(this.getFilesDir(),"handwriting-ja.model");
+	   //Log.i("FilesDir",this.getFilesDir().toString());
+	   FileOutputStream outputStream = new FileOutputStream(file);
+	   
+	   while ((len = inputStream.read(bytes)) != -1){
+	   	outputStream.write(bytes, 0, len);
+	   }
+	   
+	   inputStream.close();
+	   outputStream.close();
+	   
+	  } catch (IOException e) {
+	   // TODO Auto-generated catch block
+	   e.printStackTrace();
+	  }
     
   }
-
+  /*
+  Handler myViewUpdateHandler = new Handler() {
+	  public void handleMessage(Message msg) {
+	  
+	 super.handleMessage(msg);
+	 }
+  };
+*/
+  
+  
+  
+  
+  
   @Override
   public void onDestroy(){
 	phraseDictionary.close();
 	unregisterReceiver(txtReceiver);
 	super.onDestroy();
+	//zhuThreadHandler.getLooper().quit();
+    if ( zhuThreadHandler != null) {
+
+    	zhuThreadHandler.removeCallbacks(R1);
+
+    }
+    if (zhuthread != null) {
+
+    	zhuthread.quit();
+
+    }
   }
 
   @Override
@@ -179,28 +232,7 @@ public abstract class AbstractIME extends InputMethodService implements
   	public static my.app.zinnia.InputView draw;
   	public static my.app.zinnia.CandidateCharacter character;
 	public static TextView text;
-/*
-	public void setChosenZhuYin(String str) {
-		this.chosenzhuyin = str;
-	}
-  
-  private View WritingKeyboardView(){
-		  
-		layout = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
-		inputView = (SoftKeyboardView) getLayoutInflater().inflate(
-		        R.layout.input, null);
-		inputView.setOnKeyboardActionListener(this);
-	character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
-	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));	
-	Test.addView(character);
-		
-		
 
-		layout.addView(inputView);
-	  //return inputView.currentKeyboard.isWriting()? layout  : inputView;
-		return layout;
-  }
-  */
   @Override
   public View onCreateInputView() {
 	Test = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
@@ -210,9 +242,10 @@ public abstract class AbstractIME extends InputMethodService implements
     character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
 	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));
 	text = (TextView) Test.getChildAt(0);
+	text.setText("11");
 	Test.addView(character);
     draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
-	draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,200));
+	draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,270));
 	Test.addView(draw);
 	draw.setResultView(character);
     Test.addView(inputView);
@@ -333,11 +366,12 @@ public abstract class AbstractIME extends InputMethodService implements
     return super.onKeyDown(keyCode, event);
   }
 
-  public void onHandWritingKey(){
-	  handleComposing(text.getText().toString().hashCode());
-	  text.setText("");
-	  character.clear();
-	  draw.clear();
+  public synchronized void onHandWritingKey(int i){
+	  if(handleComposing(i))
+		chosenzhuyin = "11";
+	  	character.clear();
+	  	draw.clear();
+	  return;
   }
   
   
@@ -348,12 +382,17 @@ public abstract class AbstractIME extends InputMethodService implements
       return;
     }
     if (primaryCode == -80){
-    	onHandWritingKey();
+    	chosenzhuyin = "11";
+  	  	character.clear();
+  	  	draw.clear();
     	return;
     }
     if (handleOption(primaryCode) || handleCapsLock(primaryCode)
        || handleEnter(primaryCode) || handleSpace(primaryCode) || handleDelete(primaryCode)
-       || handleDPAD(primaryCode) || handleComposing(primaryCode)) {    		
+       || handleDPAD(primaryCode) || handleComposing(primaryCode)) {
+    	if(handleDelete(primaryCode)){
+    		
+    	}
       return;
     }
     handleKey(primaryCode);
@@ -409,60 +448,46 @@ public abstract class AbstractIME extends InputMethodService implements
   }
 
   private boolean handleOption(int keyCode) {
-    if (keyCode == SoftKeyboard.KEYCODE_OPTIONS) {
-    	// Create a Dialog menu
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this)
-    		.setTitle(R.string.ime_name)
-    		.setIcon(android.R.drawable.ic_menu_preferences)
-        	.setCancelable(true)
-        	.setNegativeButton(android.R.string.cancel, null)
-        	.setItems(new CharSequence[] {
-        		//getString(R.string.menu_barcodescan),
-        		//getString(R.string.menu_voiceinput),
-        		getString(R.string.menu_settings),
-        		getString(R.string.menu_switchIME)
-        	},
-        	new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface di, int position) {
-        				di.dismiss();
-        				switch (position) {
-        					case MENU_BARCODESCAN: // Scan Barcode      						
-        						Intent iBCScan = new Intent();
-        						iBCScan.setClass(AbstractIME.this, BarcodeScannerActivity.class);
-        						iBCScan.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        				        startActivity(iBCScan);
-        						break;
-        					case MENU_VOICEINPUT: // Voice Input
-        						Intent iVR = new Intent();
-        						iVR.setClass(AbstractIME.this, VoiceRecognitionActivity.class);
-        						iVR.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        				        startActivity(iVR);
-        						break;
-        					case MENU_SETTINGS: // Settings
-        						Intent iSetting = new Intent();
-        						iSetting.setClass(AbstractIME.this, ImePreferenceActivity.class);
-        						iSetting.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        				        startActivity(iSetting);
-        						break;
-        					case MENU_SWITCHIME: // Switch IME
-        						((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-        							.showInputMethodPicker();
-        						break;
-        				}
-        		}
-        });
-        mOptionsDialog = builder.create();
-        Window window = mOptionsDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = inputView.getWindowToken();
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        mOptionsDialog.show();
-    	return true;
-    }
-    return false;
-  }
+	    if (keyCode == SoftKeyboard.KEYCODE_OPTIONS) {
+	    	// Create a Dialog menu
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(this)
+	    		.setTitle(R.string.ime_name)		
+	    		.setIcon(android.R.drawable.ic_menu_preferences)
+	        	.setCancelable(true)
+	        	.setNegativeButton(android.R.string.cancel, null)
+	        	.setItems(new CharSequence[] {
+	        		getString(R.string.menu_settings),
+	        		getString(R.string.menu_switchIME),
+	        	},
+	        	new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface di, int position) {
+	        				di.dismiss();
+	        				switch (position) {
+	        					case MENU_SETTINGS: // Settings
+	        						Intent iSetting = new Intent();
+	        						iSetting.setClass(AbstractIME.this, ImePreferenceActivity.class);
+	        						iSetting.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+	        				        startActivity(iSetting);
+	        						break;
+	        					case MENU_SWITCHIME: // Switch IME
+	        						((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+	        							.showInputMethodPicker();
+	        						break;
+	        				}
+	        		}
+	        });
+	        mOptionsDialog = builder.create();
+	        Window window = mOptionsDialog.getWindow();
+	        WindowManager.LayoutParams lp = window.getAttributes();
+	        lp.token = inputView.getWindowToken();
+	        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+	        window.setAttributes(lp);
+	        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+	        mOptionsDialog.show();
+	    	return true;
+	    }
+	    return false;
+	  }
 
   private boolean handleCapsLock(int keyCode) {
     return (keyCode == Keyboard.KEYCODE_SHIFT) && inputView.toggleCapsLock();
@@ -637,4 +662,19 @@ public abstract class AbstractIME extends InputMethodService implements
 	}
 	return false;
   }
+  
+  public Runnable R1 = new Runnable()  
+  {  
+  	public synchronized void run()  
+      {
+  		if(!chosenzhuyin.equals("11")){
+  			msg = new Message();
+  			msg.obj = chosenzhuyin.hashCode();
+  			msg.what = UPDATE_UI;
+  			zhuThreadHandler.sendMessage(msg);
+  		}
+  		zhuThreadHandler.postDelayed(R1, 200);
+      }
+  };
+  
 }

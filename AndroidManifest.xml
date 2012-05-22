@@ -47,8 +47,5 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-
-        <activity android:name="BarcodeScannerActivity" android:label="@string/menu_barcodescan" />
-        <activity android:name=".VoiceRecognitionActivity" android:label="@string/menu_voiceinput" />
     </application>
 </manifest>

@@ -50,14 +50,14 @@ public final class R {
         public static final int space_popup_icon=0x7f020019;
     }
     public static final class id {
-        public static final int arrow_left=0x7f090001;
-        public static final int arrow_right=0x7f090003;
-        public static final int candidate_view=0x7f090002;
-        public static final int candidates_container=0x7f090000;
-        public static final int invisible=0x7f090005;
-        public static final int keyboard=0x7f090004;
-        public static final int license_view=0x7f090007;
-        public static final int textView1=0x7f090006;
+        public static final int arrow_left=0x7f0a0001;
+        public static final int arrow_right=0x7f0a0003;
+        public static final int candidate_view=0x7f0a0002;
+        public static final int candidates_container=0x7f0a0000;
+        public static final int invisible=0x7f0a0005;
+        public static final int keyboard=0x7f0a0004;
+        public static final int license_view=0x7f0a0007;
+        public static final int textView1=0x7f0a0006;
     }
     public static final class layout {
         public static final int candidates=0x7f030000;
@@ -86,7 +86,7 @@ public final class R {
         public static final int label_english=0x7f080003;
         public static final int label_handwrite=0x7f080018;
         public static final int label_simplified=0x7f080005;
-        public static final int lable_sent=0x7f080019;
+        public static final int lable_clear=0x7f080019;
         /**  Menu resources 
          */
         public static final int menu_barcodescan=0x7f080010;
@@ -114,19 +114,23 @@ public final class R {
         public static final int voice_speaknow=0x7f080016;
         public static final int zhuyin_ime_name=0x7f080001;
     }
+    public static final class style {
+        public static final int SymbolButtonStyle=0x7f090000;
+    }
     public static final class xml {
         public static final int cangjie=0x7f040000;
         public static final int method=0x7f040001;
         public static final int popup_domain=0x7f040002;
         public static final int popup_punctuation_ch=0x7f040003;
         public static final int popup_punctuation_en=0x7f040004;
-        public static final int popup_smiley=0x7f040005;
-        public static final int prefs=0x7f040006;
-        public static final int qwerty=0x7f040007;
-        public static final int qwerty_5row=0x7f040008;
-        public static final int symbols=0x7f040009;
-        public static final int symbols_shift=0x7f04000a;
-        public static final int writingzhuyin=0x7f04000b;
-        public static final int zhuyin=0x7f04000c;
+        public static final int popup_punctuation_wr=0x7f040005;
+        public static final int popup_smiley=0x7f040006;
+        public static final int prefs=0x7f040007;
+        public static final int qwerty=0x7f040008;
+        public static final int qwerty_5row=0x7f040009;
+        public static final int symbols=0x7f04000a;
+        public static final int symbols_shift=0x7f04000b;
+        public static final int writingzhuyin=0x7f04000c;
+        public static final int zhuyin=0x7f04000d;
     }
 }
