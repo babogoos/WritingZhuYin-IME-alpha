@@ -16,19 +16,15 @@
 
 package com.googlecode.tcime.unofficial;
 
+import com.googlecode.tcime.unofficial.R;
+import com.googlecode.tcime.unofficial.ZhuyinIME;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
-import android.os.Handler;
-import android.os.Handler.Callback;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.util.Log;
-
-import com.googlecode.tcime.unofficial.ZhuyinIME;
+import android.view.View;
 
 /**
  * Switches between four input modes: two symbol modes (number-symbol and
@@ -227,50 +223,45 @@ public class KeyboardSwitch {
     if (!currentKeyboard.isSymbols()) {
       // Remember the current non-symbol keyboard to switch back from symbols.
       wasEnglishToSymbol = currentKeyboard.isEnglish();
-      zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-      zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-      zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+      setWritingVisble(View.GONE); 
     }
 
     currentKeyboard = numberSymbolKeyboard;
-    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
-    
+    setWritingVisble(View.GONE); 
   }
   
   private void toShiftSymbol() {
     currentKeyboard = shiftSymbolKeyboard;
-    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
-    
+    setWritingVisble(View.GONE); 
   }
 
   private void toEnglish() {
     currentKeyboard = englishKeyboard;
-    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
+    setWritingVisble(View.GONE); 
     
   }
 
   private void toChinese() {
     currentKeyboard = chineseKeyboard;
-    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    zhuyinIME.character.setVisibility(ZhuyinIME.character.GONE);
-    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.GONE);
-     
+    setWritingVisble(View.GONE);     
   }
   
    private void toWriting() {
     currentKeyboard = writingKeyboard;
-    zhuyinIME.text.setVisibility(ZhuyinIME.text.GONE);
-    zhuyinIME.character.setVisibility(ZhuyinIME.character.VISIBLE);
-    zhuyinIME.draw.setVisibility(ZhuyinIME.draw.VISIBLE);
+    AbstractIME.text.setVisibility(View.GONE);
+    AbstractIME.character.setVisibility(View.VISIBLE);
+    AbstractIME.draw.setVisibility(View.VISIBLE);
     //zhuThreadHandler.postDelayed(R1,5000);
     //zhuThreadHandler.post(R1);
   }
+   
+   private void setWritingVisble(int visibility){
+	   AbstractIME.text.setVisibility(visibility);
+	   AbstractIME.character.setVisibility(visibility);
+	   AbstractIME.draw.setVisibility(visibility);
+   }
+   
+   
   /**
    * Switches from symbol (number-symbol or shift-symbol) keyboard,
    * back to the non-symbol (English or Chinese) keyboard.

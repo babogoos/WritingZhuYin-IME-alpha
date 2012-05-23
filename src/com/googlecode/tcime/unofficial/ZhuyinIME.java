@@ -18,6 +18,9 @@ package com.googlecode.tcime.unofficial;
 
 import java.util.HashMap;
 
+import com.googlecode.tcime.unofficial.R;
+
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.view.KeyEvent;

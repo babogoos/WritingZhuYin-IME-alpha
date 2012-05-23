@@ -3,22 +3,15 @@ package my.app.zinnia;
 import java.util.ArrayList;
 
 import com.googlecode.tcime.unofficial.AbstractIME;
-import com.googlecode.tcime.unofficial.R;
-
 
 import my.app.delegate.Clearable;
 import my.app.delegate.Showable;
-
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 
 public class CandidateCharacter extends LinearLayout implements Showable{
 	private Handler handler = new Handler();

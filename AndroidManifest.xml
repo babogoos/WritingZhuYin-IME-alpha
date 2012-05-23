@@ -26,23 +26,15 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
     <application android:label="@string/ime_name" android:icon="@drawable/icon">
-        <service android:name="ZhuyinIME" android:label="@string/zhuyin_ime_name"
+        <service android:name="com.googlecode.tcime.unofficial.ZhuyinIME" android:label="@string/zhuyin_ime_name"
                 android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
             <meta-data android:name="android.view.im" android:resource="@xml/method" />
         </service>
-
-        <service android:name=".CangjieIME" android:label="@string/cangjie_ime_name"
-                android:permission="android.permission.BIND_INPUT_METHOD">
-            <intent-filter>
-                <action android:name="android.view.InputMethod" />
-            </intent-filter>
-            <meta-data android:name="android.view.im" android:resource="@xml/method" />
-        </service>
-
-        <activity android:name="WritingZhuYinIMEalpha" android:label="@string/ime_name">
+		
+        <activity android:name="com.googlecode.tcime.unofficial.WritingZhuYinIMEalpha" android:label="@string/ime_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>

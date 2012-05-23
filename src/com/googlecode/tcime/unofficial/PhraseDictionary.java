@@ -22,11 +22,13 @@ import android.provider.UserDictionary;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.database.Cursor;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
+
+import com.googlecode.tcime.unofficial.R;
+
 
 /**
  * Reads a phrase dictionary and provides following-word suggestions as a list

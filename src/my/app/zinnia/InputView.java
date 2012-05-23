@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -116,7 +115,6 @@ public class InputView extends View implements Clearable{
 			 handler.post(new Runnable(){
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					draw.clear();
 					draw_list.clear();
 					path = null;

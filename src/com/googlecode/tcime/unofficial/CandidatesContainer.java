@@ -16,6 +16,10 @@
 
 package com.googlecode.tcime.unofficial;
 
+
+
+import com.googlecode.tcime.unofficial.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;

@@ -36,7 +36,7 @@ public class SoftKeyboardView extends KeyboardView {
 
   public SoftKeyboard currentKeyboard;
   private boolean capsLock;
-  private boolean cangjieSimplified;
+  //private boolean cangjieSimplified;
 
   private static Method invalidateKeyMethod;
   static {
@@ -78,7 +78,7 @@ public class SoftKeyboardView extends KeyboardView {
       setShifted(capsLock || (caps != 0));
     }
   }
-
+  /*
   private boolean canCangjieSimplified() {
     // Simplified-cangjie can only be toggled on Cangjie keyboard.
     return (currentKeyboard != null) && currentKeyboard.isCangjie();
@@ -96,7 +96,7 @@ public class SoftKeyboardView extends KeyboardView {
   public boolean isCangjieSimplified() {
     return cangjieSimplified;
   }
-
+  */
   public boolean hasEscape() {
     return (currentKeyboard != null) && currentKeyboard.hasEscape();
   }

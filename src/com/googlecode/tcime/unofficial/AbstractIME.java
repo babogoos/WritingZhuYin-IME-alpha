@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
+import com.googlecode.tcime.unofficial.R;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -70,8 +70,8 @@ public abstract class AbstractIME extends InputMethodService implements
   private int toastShowedCount = 0;
   private BroadcastReceiver txtReceiver;
   private AlertDialog mOptionsDialog;
-  private static final int MENU_BARCODESCAN = 2; //0
-  private static final int MENU_VOICEINPUT = 3; //1
+  //private static final int MENU_BARCODESCAN = 2; //0
+  //private static final int MENU_VOICEINPUT = 3; //1
   private static final int MENU_SETTINGS = 0; //2
   private static final int MENU_SWITCHIME = 1; //3
   
@@ -132,21 +132,17 @@ public abstract class AbstractIME extends InputMethodService implements
     
     zhuThreadHandler.post(R1);
     
-    Message m = new Message();
-    
-    
-    
 		AssetManager assetManager = getAssets();
 	    InputStream inputStream = null;
 		
 	    try {
-	        // ������/assets/handwriting-ja.model
+	        // Clone the modle to /assets/handwriting-ja.model
 	   inputStream = assetManager.open("handwriting-ja.model");
 	   
 	       byte[] bytes = new byte[4096];
 	   
 	   int len = -1;
-	   		//������������������������������������
+	   		
 	   File file = new File(this.getFilesDir(),"handwriting-ja.model");
 	   //Log.i("FilesDir",this.getFilesDir().toString());
 	   FileOutputStream outputStream = new FileOutputStream(file);
@@ -159,23 +155,10 @@ public abstract class AbstractIME extends InputMethodService implements
 	   outputStream.close();
 	   
 	  } catch (IOException e) {
-	   // TODO Auto-generated catch block
 	   e.printStackTrace();
 	  }
     
   }
-  /*
-  Handler myViewUpdateHandler = new Handler() {
-	  public void handleMessage(Message msg) {
-	  
-	 super.handleMessage(msg);
-	 }
-  };
-*/
-  
-  
-  
-  
   
   @Override
   public void onDestroy(){
@@ -189,9 +172,7 @@ public abstract class AbstractIME extends InputMethodService implements
 
     }
     if (zhuthread != null) {
-
     	zhuthread.quit();
-
     }
   }
 
@@ -250,9 +231,9 @@ public abstract class AbstractIME extends InputMethodService implements
 	draw.setResultView(character);
     Test.addView(inputView);
     //visibility
-    text.setVisibility(text.GONE);
-    character.setVisibility(character.GONE);
-    draw.setVisibility(draw.GONE);
+    text.setVisibility(View.GONE);
+    character.setVisibility(View.GONE);
+    draw.setVisibility(View.GONE);
     
     
     return Test;
