@@ -33,14 +33,5 @@
         <Key android:keyLabel="…" />
         <Key android:keyLabel="～" android:keyEdgeFlags="right" />
     </Row>
-    <Row android:rowEdgeFlags="bottom">
-        <Key android:keyLabel="：" android:keyEdgeFlags="left" />
-        <Key android:keyLabel="～" />
-        <Key android:keyLabel="…" />
-        <Key android:keyLabel="「" />
-        <Key android:keyLabel="」" />
-        <Key android:keyLabel="？" />
-        <Key android:keyLabel="！" android:keyEdgeFlags="right" />
-    </Row>
 </Keyboard>
 

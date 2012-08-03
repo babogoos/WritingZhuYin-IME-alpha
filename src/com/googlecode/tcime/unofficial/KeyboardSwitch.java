@@ -248,15 +248,11 @@ public class KeyboardSwitch {
   
    private void toWriting() {
     currentKeyboard = writingKeyboard;
-    AbstractIME.text.setVisibility(View.GONE);
     AbstractIME.character.setVisibility(View.VISIBLE);
     AbstractIME.draw.setVisibility(View.VISIBLE);
-    //zhuThreadHandler.postDelayed(R1,5000);
-    //zhuThreadHandler.post(R1);
   }
    
    private void setWritingVisble(int visibility){
-	   AbstractIME.text.setVisibility(visibility);
 	   AbstractIME.character.setVisibility(visibility);
 	   AbstractIME.draw.setVisibility(visibility);
    }

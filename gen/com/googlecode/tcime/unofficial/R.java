@@ -56,8 +56,7 @@ public final class R {
         public static final int candidates_container=0x7f0a0000;
         public static final int invisible=0x7f0a0005;
         public static final int keyboard=0x7f0a0004;
-        public static final int license_view=0x7f0a0007;
-        public static final int textView1=0x7f0a0006;
+        public static final int license_view=0x7f0a0006;
     }
     public static final class layout {
         public static final int candidates=0x7f030000;
@@ -66,6 +65,7 @@ public final class R {
         public static final int invisible=0x7f030003;
         public static final int licensing=0x7f030004;
         public static final int writingboard=0x7f030005;
+        public static final int zybutton=0x7f030006;
     }
     public static final class raw {
         public static final int dict_cangjie=0x7f050000;

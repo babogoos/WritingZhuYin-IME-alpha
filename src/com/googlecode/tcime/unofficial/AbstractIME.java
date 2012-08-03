@@ -212,30 +212,19 @@ public abstract class AbstractIME extends InputMethodService implements
   	LinearLayout Test;
   	public static my.app.zinnia.InputView draw;
   	public static my.app.zinnia.CandidateCharacter character;
-	public static TextView text;
+
 
   @Override
   public View onCreateInputView() {
 	Test = (LinearLayout)getLayoutInflater().inflate(R.layout.invisible,null);
-    inputView = (SoftKeyboardView) getLayoutInflater().inflate(
-        R.layout.input, null);
-    inputView.setOnKeyboardActionListener(this);
-    character =(my.app.zinnia.CandidateCharacter)getLayoutInflater().inflate(R.layout.character, null);
-	character.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,50));
-	text = (TextView) Test.getChildAt(0);
-	text.setText("11");
-	Test.addView(character);
-    draw =(my.app.zinnia.InputView)getLayoutInflater().inflate(R.layout.writingboard, null);
-	draw.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,270));
-	Test.addView(draw);
+	inputView = (SoftKeyboardView)Test.getChildAt(2);
+	inputView.setOnKeyboardActionListener(this);
+    character =(my.app.zinnia.CandidateCharacter)Test.getChildAt(0);
+    draw =(my.app.zinnia.InputView)Test.getChildAt(1);
 	draw.setResultView(character);
-    Test.addView(inputView);
     //visibility
-    text.setVisibility(View.GONE);
     character.setVisibility(View.GONE);
     draw.setVisibility(View.GONE);
-    
-    
     return Test;
   }
 

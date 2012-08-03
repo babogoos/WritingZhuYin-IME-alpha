@@ -71,7 +71,6 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 								@Override
 								public synchronized void onClick(View v) {
 									AbstractIME.chosenzhuyin = str;
-									AbstractIME.text.setText(str);
 									character.clear();
 									draw.clear();
 									

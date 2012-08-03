@@ -17,27 +17,40 @@
  */
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-        package="com.googlecode.tcime.unofficial"
-        android:versionCode="241"
-        android:versionName="2.41"
-        >
-    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
-    <application android:label="@string/ime_name" android:icon="@drawable/icon">
-        <service android:name="com.googlecode.tcime.unofficial.ZhuyinIME" android:label="@string/zhuyin_ime_name"
-                android:permission="android.permission.BIND_INPUT_METHOD">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.googlecode.tcime.unofficial"
+    android:versionCode="241"
+    android:versionName="2.41" >
+
+    <uses-sdk
+        android:minSdkVersion="3"
+        android:targetSdkVersion="4" />
+	
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/ime_name" >
+        <service
+            android:name="com.googlecode.tcime.unofficial.ZhuyinIME"
+            android:label="@string/zhuyin_ime_name"
+            android:permission="android.permission.BIND_INPUT_METHOD" >
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
-            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
         </service>
-		
-        <activity android:name="com.googlecode.tcime.unofficial.WritingZhuYinIMEalpha" android:label="@string/ime_name">
+
+        <activity
+            android:name="com.googlecode.tcime.unofficial.WritingZhuYinIMEalpha"
+            android:label="@string/ime_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
     </application>
+	
 </manifest>
