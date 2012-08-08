@@ -27,7 +27,7 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	}
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		recognizer.open("data/data/com.googlecode.tcime.unofficial/files/handwriting-ja.model");
+		recognizer.open("data/data/com.googlecode.tcime.unofficial/files/handwriting-zy.model");
 	}
 	private class SearchResultDelegate implements Runnable{
 		Draw draw;  

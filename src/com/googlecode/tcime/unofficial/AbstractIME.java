@@ -137,13 +137,13 @@ public abstract class AbstractIME extends InputMethodService implements
 		
 	    try {
 	        // Clone the modle to /assets/handwriting-ja.model
-	   inputStream = assetManager.open("handwriting-ja.model");
+	   inputStream = assetManager.open("handwriting-zy.model");
 	   
 	       byte[] bytes = new byte[4096];
 	   
 	   int len = -1;
 	   		
-	   File file = new File(this.getFilesDir(),"handwriting-ja.model");
+	   File file = new File(this.getFilesDir(),"handwriting-zy.model");
 	   //Log.i("FilesDir",this.getFilesDir().toString());
 	   FileOutputStream outputStream = new FileOutputStream(file);
 	   
