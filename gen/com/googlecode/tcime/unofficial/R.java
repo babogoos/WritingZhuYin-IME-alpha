@@ -50,13 +50,13 @@ public final class R {
         public static final int space_popup_icon=0x7f020019;
     }
     public static final class id {
-        public static final int arrow_left=0x7f090001;
-        public static final int arrow_right=0x7f090003;
-        public static final int candidate_view=0x7f090002;
-        public static final int candidates_container=0x7f090000;
-        public static final int invisible=0x7f090005;
-        public static final int keyboard=0x7f090004;
-        public static final int license_view=0x7f090006;
+        public static final int arrow_left=0x7f0a0001;
+        public static final int arrow_right=0x7f0a0003;
+        public static final int candidate_view=0x7f0a0002;
+        public static final int candidates_container=0x7f0a0000;
+        public static final int invisible=0x7f0a0005;
+        public static final int keyboard=0x7f0a0004;
+        public static final int license_view=0x7f0a0006;
     }
     public static final class layout {
         public static final int candidates=0x7f030000;
@@ -65,6 +65,7 @@ public final class R {
         public static final int invisible=0x7f030003;
         public static final int licensing=0x7f030004;
         public static final int writingboard=0x7f030005;
+        public static final int zybutton=0x7f030006;
     }
     public static final class raw {
         public static final int dict_cangjie=0x7f050000;
@@ -72,52 +73,46 @@ public final class R {
         public static final int dict_zhuyin=0x7f050002;
     }
     public static final class string {
-        /**  Barcode Activity 
-         */
-        public static final int barcode_missing=0x7f080014;
-        public static final int cangjie_ime_name=0x7f080002;
         /**  Titles for IME  
          */
         public static final int ime_name=0x7f080000;
-        public static final int label_chinese=0x7f080004;
+        public static final int label_chinese=0x7f080003;
         /**  Labels on soft keys 
          */
-        public static final int label_english=0x7f080003;
-        public static final int label_handwrite=0x7f080018;
-        public static final int label_simplified=0x7f080005;
+        public static final int label_english=0x7f080002;
+        /**  Writing IME 
+         */
+        public static final int label_handwrite=0x7f080010;
+        public static final int lable_clear=0x7f080011;
         /**  Menu resources 
          */
-        public static final int menu_barcodescan=0x7f080010;
-        public static final int menu_settings=0x7f080012;
-        public static final int menu_switchIME=0x7f080013;
-        public static final int menu_voiceinput=0x7f080011;
+        public static final int menu_settings=0x7f08000e;
+        public static final int menu_switchIME=0x7f08000f;
         /**  Preference settings 
          */
-        public static final int prefs_licensing=0x7f080006;
-        public static final int prefs_qwerty5row_key=0x7f08000c;
-        public static final int prefs_qwerty5row_summary=0x7f08000d;
-        public static final int prefs_qwerty5row_title=0x7f08000b;
-        public static final int prefs_sound_key=0x7f08000a;
-        public static final int prefs_sound_title=0x7f080009;
-        public static final int prefs_vibrate_key=0x7f080008;
-        public static final int prefs_vibrate_title=0x7f080007;
+        public static final int prefs_licensing=0x7f080004;
+        public static final int prefs_qwerty5row_key=0x7f08000a;
+        public static final int prefs_qwerty5row_summary=0x7f08000b;
+        public static final int prefs_qwerty5row_title=0x7f080009;
+        public static final int prefs_sound_key=0x7f080008;
+        public static final int prefs_sound_title=0x7f080007;
+        public static final int prefs_vibrate_key=0x7f080006;
+        public static final int prefs_vibrate_title=0x7f080005;
         /**  String resources 
          */
-        public static final int str_needsreopen=0x7f08000e;
-        public static final int str_notavailable=0x7f08000f;
-        public static final int voice_chooseone=0x7f080017;
-        /**  Voice Activity 
-         */
-        public static final int voice_missing=0x7f080015;
-        public static final int voice_speaknow=0x7f080016;
+        public static final int str_needsreopen=0x7f08000c;
+        public static final int str_notavailable=0x7f08000d;
         public static final int zhuyin_ime_name=0x7f080001;
     }
+    public static final class style {
+        public static final int SymbolButtonStyle=0x7f090000;
+    }
     public static final class xml {
-        public static final int cangjie=0x7f040000;
-        public static final int method=0x7f040001;
-        public static final int popup_domain=0x7f040002;
-        public static final int popup_punctuation_ch=0x7f040003;
-        public static final int popup_punctuation_en=0x7f040004;
+        public static final int method=0x7f040000;
+        public static final int popup_domain=0x7f040001;
+        public static final int popup_punctuation_ch=0x7f040002;
+        public static final int popup_punctuation_en=0x7f040003;
+        public static final int popup_punctuation_wr=0x7f040004;
         public static final int popup_smiley=0x7f040005;
         public static final int prefs=0x7f040006;
         public static final int qwerty=0x7f040007;

@@ -16,6 +16,9 @@
 
 package com.googlecode.tcime.unofficial;
 
+
+import com.googlecode.tcime.unofficial.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -55,13 +58,13 @@ public class SoftKeyboard extends Keyboard {
   public boolean isZhuyin() {
     return id == R.xml.zhuyin;
   }
-
+  /*
   public boolean isCangjie() {
     return id == R.xml.cangjie;
   }
-
+  */
   public boolean isChinese() {
-    return isZhuyin() || isCangjie();
+    return isZhuyin() /* || isCangjie()*/;
   }
 
   public boolean isNumberSymbol() {

@@ -2,19 +2,16 @@ package my.app.zinnia;
 
 import java.util.ArrayList;
 
+import com.googlecode.tcime.unofficial.AbstractIME;
 
 import my.app.delegate.Clearable;
 import my.app.delegate.Showable;
-
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
+
 
 public class CandidateCharacter extends LinearLayout implements Showable{
 	private Handler handler = new Handler();
@@ -22,20 +19,16 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 	private org.zinnia.Character character = new org.zinnia.Character();
 	private ShowDelegate show = new ShowDelegate();
 	private ClearDelegate clear = new ClearDelegate();
-	//private EditText edit; 
-	public String chosenZhuYin;
+	public String chosenZhuYin = "11";
+	public Integer num = new Integer(0);
 	
-	
-	
+	public boolean haveWrited(){
+		return false;
+	}
 	public CandidateCharacter(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		recognizer.open("/sdcard/handwriting-ja.model");
-		
-		
+		recognizer.open("data/data/com.googlecode.tcime.unofficial/files/handwriting-zy.model");
 	}
-	
-	
-	
 	private class SearchResultDelegate implements Runnable{
 		Draw draw;  
 		ArrayList<String> resultList;
@@ -59,28 +52,32 @@ public class CandidateCharacter extends LinearLayout implements Showable{
 				}
 				org.zinnia.Result result = CandidateCharacter.this.recognizer.classify(CandidateCharacter.this.character, 10);		
 				resultList = new ArrayList<String>();
-				for(int k = 0; k < result.size(); k++){
+				num = (int) result.size();
+				for(int k = 0; k < 6; k++){
 					resultList.add(result.value(k));
 				}
 				result.dispose();
 			}
 			handler.post(new Runnable(){
 				@Override
-				public void run() {
+				public synchronized void run() {
 					CandidateCharacter.this.removeAllViewsInLayout();
 					if(resultList != null){
 						for( final String str : resultList ){
-							Button button = new Button(CandidateCharacter.this.getContext());
+							my.app.zinnia.ZhuyinBtn button;
+							button = new my.app.zinnia.ZhuyinBtn (CandidateCharacter.this.getContext());
 							button.setText((CharSequence)str);
+							button.setWidth(100);
+							//button.set
 							button.setOnClickListener(new OnClickListener(){
 								@Override
-								public void onClick(View v) {
-									chosenZhuYin = str;
-									Log.v(chosenZhuYin, "Is" +chosenZhuYin);
+								public synchronized void onClick(View v) {
+									AbstractIME.chosenzhuyin = str;
 									character.clear();
 									draw.clear();
 									
 								}});
+
 							CandidateCharacter.this.addView(button);
 							
 						}

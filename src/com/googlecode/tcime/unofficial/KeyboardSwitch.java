@@ -16,11 +16,15 @@
 
 package com.googlecode.tcime.unofficial;
 
+import com.googlecode.tcime.unofficial.R;
+import com.googlecode.tcime.unofficial.ZhuyinIME;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.view.View;
 
 /**
  * Switches between four input modes: two symbol modes (number-symbol and
@@ -58,7 +62,7 @@ public class KeyboardSwitch {
   private SoftKeyboard chineseKeyboard;
   private SoftKeyboard currentKeyboard;
   public SoftKeyboard writingKeyboard;
-  
+  public ZhuyinIME zhuyinIME;
 
   private boolean wasEnglishToSymbol;
   private boolean wasChineseToSymbol;
@@ -101,6 +105,7 @@ public class KeyboardSwitch {
     if (currentKeyboard == null) {
       // Select English keyboard at the first time the input method is launched.
       toEnglish();
+      
     } else {
       // Preserve the selected keyboard and its shift-status.
       boolean isShifted = currentKeyboard.isShifted();
@@ -209,6 +214,7 @@ public class KeyboardSwitch {
     // Return false if the key isn't consumed to switch a keyboard.
     return false;
   }
+  
 
   /**
    * Switches to the number-symbol keyboard and remembers if it was English.
@@ -217,26 +223,41 @@ public class KeyboardSwitch {
     if (!currentKeyboard.isSymbols()) {
       // Remember the current non-symbol keyboard to switch back from symbols.
       wasEnglishToSymbol = currentKeyboard.isEnglish();
+      setWritingVisble(View.GONE); 
     }
 
     currentKeyboard = numberSymbolKeyboard;
+    setWritingVisble(View.GONE); 
   }
   
   private void toShiftSymbol() {
     currentKeyboard = shiftSymbolKeyboard;
+    setWritingVisble(View.GONE); 
   }
 
   private void toEnglish() {
     currentKeyboard = englishKeyboard;
+    setWritingVisble(View.GONE); 
+    
   }
 
   private void toChinese() {
     currentKeyboard = chineseKeyboard;
+    setWritingVisble(View.GONE);     
   }
-
+  
    private void toWriting() {
     currentKeyboard = writingKeyboard;
+    AbstractIME.character.setVisibility(View.VISIBLE);
+    AbstractIME.draw.setVisibility(View.VISIBLE);
   }
+   
+   private void setWritingVisble(int visibility){
+	   AbstractIME.character.setVisibility(visibility);
+	   AbstractIME.draw.setVisibility(visibility);
+   }
+   
+   
   /**
    * Switches from symbol (number-symbol or shift-symbol) keyboard,
    * back to the non-symbol (English or Chinese) keyboard.

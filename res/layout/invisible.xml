@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  
-    xmlns:android="http://schemas.android.com/apk/res/android"  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/invisible"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:background="#00000000"
-    android:orientation="vertical"  
-    android:layout_width="fill_parent"  
-    android:layout_height="wrap_content">
-    
-      <!-- 注音View --> 
-	<!--my.app.zinnia.CandidateCharacter 
-        android:id="@+id/character"  
-        android:layout_width="fill_parent"  
-        android:layout_height="50px" /-->  
-    
-    <!-- 手寫板View -->  
-    <!--  my.app.zinnia.InputView 
-        android:id="@+id/writingboard"  
-        android:background="#33333333"
-        android:layout_width="fill_parent"  
-        android:layout_height="200px" /-->  
-  
-  
+    android:orientation="vertical" >
+
+    <my.app.zinnia.CandidateCharacter
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#00000000" />
+
+    <my.app.zinnia.InputView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="212dp"
+        android:background="#BBBAF4" />
+    <com.googlecode.tcime.unofficial.SoftKeyboardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/keyboard"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/key"
+        />
+
 </LinearLayout>

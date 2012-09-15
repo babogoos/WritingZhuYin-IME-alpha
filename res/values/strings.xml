@@ -20,13 +20,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Titles for IME  -->
     <string name="ime_name">手寫注音輸入法</string>
-    <string name="zhuyin_ime_name">注音輸入法</string>
-    <string name="cangjie_ime_name">倉頡輸入法</string>
+    <string name="zhuyin_ime_name">手寫注音輸入法</string>
 
     <!-- Labels on soft keys -->
     <string name="label_english">英文</string>
     <string name="label_chinese">中文</string>
-    <string name="label_simplified">速成</string>
 
     <!-- Preference settings -->
     <string name="prefs_licensing">授權資訊</string>
@@ -43,17 +41,10 @@
     <string name="str_notavailable">無法使用</string>
     
     <!-- Menu resources -->
-    <string name="menu_barcodescan">QR 碼輸入</string>
-    <string name="menu_voiceinput">語音輸入</string>
     <string name="menu_settings">輸入法設定</string>
     <string name="menu_switchIME">切換輸入法</string>
-
-	<!-- Barcode Activity -->
-	<string name="barcode_missing">您需要安裝 ZXing 條碼掃描器以使用 QR 碼輸入功能。您想從 Market 上安裝嗎？</string>
-	
-	<!-- Voice Activity -->
-	<string name="voice_missing">您的裝置必須要有 Google 語音輸入支援 (需要 Android 系統支援)</string>
-	<string name="voice_speaknow">請說話</string>
-	<string name="voice_chooseone">請選擇一個</string>
+    
+	<!-- Writing IME -->
 	<string name="label_handwrite">手寫</string>
+	<string name="lable_clear">Clear</string>
 </resources>
